@@ -89,8 +89,9 @@ section h3 {
 
 /* Bulleted list styling */
 .participants-list {
-  list-style: disc;
-  padding-left: 20px;
+  /* hide the default bullets and use our own spacing */
+  list-style: none;
+  padding-left: 0;
   max-height: 160px;
   overflow: auto;
   margin: 0;
@@ -105,6 +106,28 @@ section h3 {
   font-size: 14px;
   color: #444;
   box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.participant-email {
+  word-break: break-all;
+  margin-right: 12px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #c62828;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  background: rgba(198,40,40,0.08);
 }
 
 /* Styling for the "no participants" placeholder */

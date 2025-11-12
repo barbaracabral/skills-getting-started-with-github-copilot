@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Clear loading message
       activitiesList.innerHTML = "";
+  // Reset activity select (keep the default placeholder)
+  activitySelect.innerHTML = '<option value="">-- Select an activity --</option>';
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
@@ -44,7 +46,41 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           participants.forEach((p) => {
             const li = document.createElement("li");
-            li.textContent = p;
+
+            // email text
+            const span = document.createElement("span");
+            span.className = "participant-email";
+            span.textContent = p;
+
+            // delete button
+            const del = document.createElement("button");
+            del.className = "delete-btn";
+            del.title = "Unregister participant";
+            del.innerHTML = "\u2716"; // heavy multiplication x
+
+            // click handler to unregister
+            del.addEventListener("click", async () => {
+              if (!confirm(`Unregister ${p} from ${name}?`)) return;
+              try {
+                const res = await fetch(`/activities/${encodeURIComponent(name)}/participants?email=${encodeURIComponent(p)}`, {
+                  method: "DELETE",
+                });
+
+                if (res.ok) {
+                  // remove from UI
+                  li.remove();
+                } else {
+                  const data = await res.json().catch(() => ({}));
+                  alert(data.detail || "Failed to unregister participant");
+                }
+              } catch (err) {
+                console.error("Error unregistering:", err);
+                alert("Error unregistering participant. See console for details.");
+              }
+            });
+
+            li.appendChild(span);
+            li.appendChild(del);
             ul.appendChild(li);
           });
         }
@@ -88,6 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
+        // Refresh activities so the newly-registered participant appears immediately
+        fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "error";
