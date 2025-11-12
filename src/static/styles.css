@@ -74,6 +74,81 @@ section h3 {
   margin-bottom: 8px;
 }
 
+/* Participants section */
+.participants-section {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+
+.participants-section h5 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Bulleted list styling */
+.participants-list {
+  /* hide the default bullets and use our own spacing */
+  list-style: none;
+  padding-left: 0;
+  max-height: 160px;
+  overflow: auto;
+  margin: 0;
+}
+
+.participants-list li {
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border: 1px solid #eee;
+  padding: 6px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #444;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.participant-email {
+  word-break: break-all;
+  margin-right: 12px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #c62828;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  background: rgba(198,40,40,0.08);
+}
+
+/* Styling for the "no participants" placeholder */
+.participants-list li.no-participants {
+  list-style: none;
+  font-style: italic;
+  color: #777;
+  background: transparent;
+  border: none;
+  padding-left: 0;
+  box-shadow: none;
+}
+
+/* Make the list more compact on small screens */
+@media (max-width: 480px) {
+  .participants-list li {
+    padding: 6px;
+    font-size: 13px;
+  }
+}
+
 .form-group {
   margin-bottom: 15px;
 }
